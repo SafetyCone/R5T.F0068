@@ -82,10 +82,10 @@ namespace R5T.F0068
 				.Append(Z0000.Instances.Strings.Empty)
 				.AppendRange(namespaceLines);
 
-			Instances.FileSystemOperator.EnsureDirectoryForFilePathExists(
+			Instances.FileSystemOperator.Ensure_DirectoryExists_ForFilePath(
 				outputFilePath);
 
-			Instances.FileOperator.WriteLines(
+			Instances.FileOperator.Write_Lines_Synchronous(
 				outputFilePath,
 				lines);
 		}
@@ -117,10 +117,10 @@ namespace R5T.F0068
 				.Append(Z0000.Instances.Strings.Empty)
 				.AppendRange(namespaceLines);
 
-			Instances.FileSystemOperator.EnsureDirectoryForFilePathExists(
+			Instances.FileSystemOperator.Ensure_DirectoryExists_ForFilePath(
 				outputFilePath);
 
-			Instances.FileOperator.WriteLines(
+			Instances.FileOperator.Write_Lines_Synchronous(
 				outputFilePath,
 				lines);
 		}
@@ -151,7 +151,7 @@ namespace R5T.F0068
 							// Use the first.
 							var serviceDefinitionNamespacedTypeName = directlyImplementedInterfaces
 								.Where(@interface => isServiceDefinitionType(@interface))
-								.Select(x => Instances.TypeOperator.GetNamespacedTypeName(x))
+								.Select(x => Instances.TypeOperator.Get_NamespacedTypeName(x))
 								.First();
 
 							var serviceDefinitionProperties = typeInfo.DeclaredProperties

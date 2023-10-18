@@ -33,8 +33,8 @@ namespace R5T.F0068
 			var lines = serviceImplementations
 				.SelectMany(implementation =>
 				{
-					var implementationTypeName = NamespacedTypeNameOperator.Instance.GetTypeName(implementation.ImplementationNamespacedTypeName);
-					var definitionTypeName = NamespacedTypeNameOperator.Instance.GetTypeName(implementation.DefinitionNamespacedTypeName);
+					var implementationTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(implementation.ImplementationNamespacedTypeName);
+					var definitionTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(implementation.DefinitionNamespacedTypeName);
 
 					var documentationLines = this.GetDocumentationLines(
 						implementationTypeName,
@@ -130,7 +130,7 @@ namespace R5T.F0068
 			var serviceTypeNamesByVariableNames = serviceDefinitionNamespacedTypeNames
 				.Select(dependencyDefinitionNamespacedTypeName =>
 				{
-					var dependencyDefinitionTypeName = NamespacedTypeNameOperator.Instance.GetTypeName(dependencyDefinitionNamespacedTypeName);
+					var dependencyDefinitionTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(dependencyDefinitionNamespacedTypeName);
 
 					var nonInterfaceTypeName = dependencyDefinitionTypeName[1..]; // Skip the first 'I'.
 					var variableName = CharacterOperator.Instance.ToLower(nonInterfaceTypeName[0]) + nonInterfaceTypeName[1..] + "Action";
@@ -149,8 +149,8 @@ namespace R5T.F0068
 			var lines = serviceImplementations
 				.SelectMany(implementation =>
 				{
-					var implementationTypeName = NamespacedTypeNameOperator.Instance.GetTypeName(implementation.ImplementationNamespacedTypeName);
-					var definitionTypeName = NamespacedTypeNameOperator.Instance.GetTypeName(implementation.DefinitionNamespacedTypeName);
+					var implementationTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(implementation.ImplementationNamespacedTypeName);
+					var definitionTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(implementation.DefinitionNamespacedTypeName);
 
 					var documentationLines = this.GetDocumentationLines(
 						implementationTypeName,
@@ -208,10 +208,10 @@ namespace R5T.F0068
 		{
 			var allRequiredNamespaceNames = serviceImplementations
 				.SelectMany(implementation => EnumerableOperator.Instance.From(
-					NamespacedTypeNameOperator.Instance.GetNamespaceName(implementation.ImplementationNamespacedTypeName))
-					.Append(NamespacedTypeNameOperator.Instance.GetNamespaceName(implementation.DefinitionNamespacedTypeName))
+					NamespacedTypeNameOperator.Instance.Get_NamespaceName(implementation.ImplementationNamespacedTypeName))
+					.Append(NamespacedTypeNameOperator.Instance.Get_NamespaceName(implementation.DefinitionNamespacedTypeName))
 					.AppendRange(implementation.DependencyDefinitionNamespacedTypeNames
-						.Select(value => NamespacedTypeNameOperator.Instance.GetNamespaceName(value))))
+						.Select(value => NamespacedTypeNameOperator.Instance.Get_NamespaceName(value))))
 				.AppendRange(extraNamespaceNames)
 				.Distinct()
 				.Except(projectNamespaceName)
