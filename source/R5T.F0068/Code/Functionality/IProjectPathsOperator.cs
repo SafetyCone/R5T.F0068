@@ -14,7 +14,7 @@ namespace R5T.F0068
         {
 			var codeDirectoryPath = this.GetCodeDirectoryPath(projectFilePath);
 
-			var extensionsDirectoryPath = Instances.PathOperator.GetDirectoryPath(
+			var extensionsDirectoryPath = Instances.PathOperator.Get_DirectoryPath(
 				codeDirectoryPath,
 				Instances.DirectoryNames.Extensions);
 
@@ -25,7 +25,7 @@ namespace R5T.F0068
         {
 			var codeDirectoryPath = this.GetCodeDirectoryPath(projectFilePath);
 
-			var functionalityDirectoryPath = Instances.PathOperator.GetDirectoryPath(
+			var functionalityDirectoryPath = Instances.PathOperator.Get_DirectoryPath(
 				codeDirectoryPath,
 				Instances.DirectoryNames.Functionality);
 
@@ -36,7 +36,7 @@ namespace R5T.F0068
 		{
 			var extensionsDirectoryPath = this.GetExtensionsDirectoryPath(projectFilePath);
 
-			var generatedIServiceCollectionExtensionsOperatorCodeFilePath = Instances.PathOperator.GetFilePath(
+			var generatedIServiceCollectionExtensionsOperatorCodeFilePath = Instances.PathOperator.Get_FilePath(
 				extensionsDirectoryPath,
 				Instances.FileNames.GeneratedIServiceCollectionExtensions);
 
@@ -47,7 +47,7 @@ namespace R5T.F0068
         {
 			var functionalityDirectoryPath = this.GetFunctionalityDirectoryPath(projectFilePath);
 
-			var generatedIServiceActionOperatorCodeFilePath = Instances.PathOperator.GetFilePath(
+			var generatedIServiceActionOperatorCodeFilePath = Instances.PathOperator.Get_FilePath(
 				functionalityDirectoryPath,
 				Instances.FileNames.GeneratedIServiceActionOperator);
 
