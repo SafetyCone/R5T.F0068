@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using R5T.F0000;
 using R5T.T0132;
 using R5T.T0149;
 
@@ -33,8 +32,8 @@ namespace R5T.F0068
 			var lines = serviceImplementations
 				.SelectMany(implementation =>
 				{
-					var implementationTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(implementation.ImplementationNamespacedTypeName);
-					var definitionTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(implementation.DefinitionNamespacedTypeName);
+					var implementationTypeName = Instances.NamespacedTypeNameOperator.Get_TypeName(implementation.ImplementationNamespacedTypeName);
+					var definitionTypeName = Instances.NamespacedTypeNameOperator.Get_TypeName(implementation.DefinitionNamespacedTypeName);
 
 					var documentationLines = this.GetDocumentationLines(
 						implementationTypeName,
@@ -43,7 +42,7 @@ namespace R5T.F0068
 					var dependencyServiceTypeNamesByVariableNames = this.GetServiceTypeNamesByVariableNames(
 						implementation.DependencyDefinitionNamespacedTypeNames);
 
-					var signatureLines = EnumerableOperator.Instance.From($"public IServiceAction<{definitionTypeName}> Add{implementationTypeName}Action(")
+					var signatureLines = Instances.EnumerableOperator.From($"public IServiceAction<{definitionTypeName}> Add{implementationTypeName}Action(")
 						.AppendRange(dependencyServiceTypeNamesByVariableNames
 							.Select(pair =>
 							{
@@ -77,13 +76,13 @@ namespace R5T.F0068
 					var allBodyLines = bodyLines
 						.AppendRange(new[]
 						{
-								Z0000.Strings.Instance.Empty,
+                                Instances.Strings.Empty,
 								"\treturn serviceAction;",
 								"}"
 						})
 						.Now();
 
-					var output = EnumerableOperator.Instance.Empty<string>()
+					var output = Instances.EnumerableOperator.Empty<string>()
 						.Append(documentationLines)
 						.Append(signatureLines)
 						.Append(allBodyLines)
@@ -130,10 +129,10 @@ namespace R5T.F0068
 			var serviceTypeNamesByVariableNames = serviceDefinitionNamespacedTypeNames
 				.Select(dependencyDefinitionNamespacedTypeName =>
 				{
-					var dependencyDefinitionTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(dependencyDefinitionNamespacedTypeName);
+					var dependencyDefinitionTypeName = Instances.NamespacedTypeNameOperator.Get_TypeName(dependencyDefinitionNamespacedTypeName);
 
 					var nonInterfaceTypeName = dependencyDefinitionTypeName[1..]; // Skip the first 'I'.
-					var variableName = CharacterOperator.Instance.ToLower(nonInterfaceTypeName[0]) + nonInterfaceTypeName[1..] + "Action";
+					var variableName = Instances.CharacterOperator.ToLower(nonInterfaceTypeName[0]) + nonInterfaceTypeName[1..] + "Action";
 
 					return (variableName, dependencyDefinitionTypeName);
 				})
@@ -149,8 +148,8 @@ namespace R5T.F0068
 			var lines = serviceImplementations
 				.SelectMany(implementation =>
 				{
-					var implementationTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(implementation.ImplementationNamespacedTypeName);
-					var definitionTypeName = NamespacedTypeNameOperator.Instance.Get_TypeName(implementation.DefinitionNamespacedTypeName);
+					var implementationTypeName = Instances.NamespacedTypeNameOperator.Get_TypeName(implementation.ImplementationNamespacedTypeName);
+					var definitionTypeName = Instances.NamespacedTypeNameOperator.Get_TypeName(implementation.DefinitionNamespacedTypeName);
 
 					var documentationLines = this.GetDocumentationLines(
 						implementationTypeName,
@@ -159,7 +158,7 @@ namespace R5T.F0068
 					var dependencyServiceTypeNamesByVariableNames = this.GetServiceTypeNamesByVariableNames(
 						implementation.DependencyDefinitionNamespacedTypeNames);
 
-					var signatureLines = EnumerableOperator.Instance.From($"public static IServiceCollection Add{implementationTypeName}(this IServiceCollection services,")
+					var signatureLines = Instances.EnumerableOperator.From($"public static IServiceCollection Add{implementationTypeName}(this IServiceCollection services,")
 						.AppendRange(dependencyServiceTypeNamesByVariableNames
 							.Select(pair =>
 							{
@@ -181,13 +180,13 @@ namespace R5T.F0068
 					.AppendRange(new[]
 					{
 							$"\t\t.AddSingleton<{definitionTypeName}, {implementationTypeName}>();",
-							Z0000.Strings.Instance.Empty,
+                            Instances.Strings.Empty,
 							"\treturn services;",
 							"}"
 					})
 					.Now();
 
-					var output = EnumerableOperator.Instance.Empty<string>()
+					var output = Instances.EnumerableOperator.Empty<string>()
 						.Append(documentationLines)
 						.Append(signatureLines)
 						.Append(bodyLines)
@@ -207,11 +206,11 @@ namespace R5T.F0068
 			IEnumerable<string> extraNamespaceNames)
 		{
 			var allRequiredNamespaceNames = serviceImplementations
-				.SelectMany(implementation => EnumerableOperator.Instance.From(
-					NamespacedTypeNameOperator.Instance.Get_NamespaceName(implementation.ImplementationNamespacedTypeName))
-					.Append(NamespacedTypeNameOperator.Instance.Get_NamespaceName(implementation.DefinitionNamespacedTypeName))
+				.SelectMany(implementation => Instances.EnumerableOperator.From(
+                    Instances.NamespacedTypeNameOperator.Get_NamespaceName(implementation.ImplementationNamespacedTypeName))
+					.Append(Instances.NamespacedTypeNameOperator.Get_NamespaceName(implementation.DefinitionNamespacedTypeName))
 					.AppendRange(implementation.DependencyDefinitionNamespacedTypeNames
-						.Select(value => NamespacedTypeNameOperator.Instance.Get_NamespaceName(value))))
+						.Select(value => Instances.NamespacedTypeNameOperator.Get_NamespaceName(value))))
 				.AppendRange(extraNamespaceNames)
 				.Distinct()
 				.Except(projectNamespaceName)
@@ -226,9 +225,9 @@ namespace R5T.F0068
 			var usingLines = new[]
 			{
 					"using System;",
-					Z0000.Strings.Instance.Empty,
+                    Instances.Strings.Empty,
 					"using Microsoft.Extensions.DependencyInjection;",
-					Z0000.Strings.Instance.Empty,
+                    Instances.Strings.Empty,
 				}
 			.AppendRange(allRequiredNamespaceNames
 				.Select(namespaceName => $"using {namespaceName};"))

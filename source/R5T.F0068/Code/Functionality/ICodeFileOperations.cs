@@ -78,8 +78,8 @@ namespace R5T.F0068
 			.Now();
 
 			var lines = usingLines
-				.Append(Z0000.Instances.Strings.Empty)
-				.Append(Z0000.Instances.Strings.Empty)
+				.Append(Instances.Strings.Empty)
+				.Append(Instances.Strings.Empty)
 				.AppendRange(namespaceLines);
 
 			Instances.FileSystemOperator.Ensure_DirectoryExists_ForFilePath(
@@ -113,8 +113,8 @@ namespace R5T.F0068
 			.Now();
 
 			var lines = usingLines
-				.Append(Z0000.Instances.Strings.Empty)
-				.Append(Z0000.Instances.Strings.Empty)
+				.Append(Instances.Strings.Empty)
+				.Append(Instances.Strings.Empty)
 				.AppendRange(namespaceLines);
 
 			Instances.FileSystemOperator.Ensure_DirectoryExists_ForFilePath(
